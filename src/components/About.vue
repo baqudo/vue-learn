@@ -1,0 +1,108 @@
+<template>
+  <div class="about">
+    <div class="container">
+      <div class="about__block">
+        <h2>{{about.title}}</h2>
+        <p v-for="text in about.text">{{text}}</p>
+      </div>
+      <div class="about__block">
+        <h2>{{team.title}}</h2>
+        <div class="about__team" >
+          <teamItem v-for="teammate in team.list" :item="teammate" :key="teammate.id" />
+        </div>
+      </div>
+
+
+    </div>   
+  </div>
+</template>
+
+<script>
+
+import teamItem from '@/components/teamItem';
+export default {
+  name: 'About',
+  components: {
+    teamItem
+  },
+  data () {
+    return {
+      about: {
+        title: 'What We Are All About',
+        text: [
+          'It’s not always easy to filter out noise and purely focus on the content. Too many blogs and news sites are filled with colourful and distracting advertisement left right and centre. This is where we do things differently! Rather than just focusing purely and generating revenue, we focus on great user experience.', 'You will notice that our news articles are content focused and free of any distractions. On top of that, we deliver content revolving design on a daily basis. Offering you insightful tutorials, techniques, design inspirations, mobile app development, coding, unique advertisements, and freebies.', 'Our focus is and forever will be to bring high quality resources to lean from and to be inspired. Visit us daily for new design related articles!' ],
+      },
+      team: {
+        title: 'Meet Our Team!',
+        list: [
+          {
+            id: 1,
+            img: 'https://picsum.photos/200/200?image=1062',
+            title: 'Kimberly Thompson',
+            position: 'Founder & CEO',
+            descr: 'Kimberly is the founder and the CEO of our company. With 10 years of experience in the tech industry, she ensures all operations are running smoothly.',
+          },
+          {
+            id: 2,
+            img: 'https://picsum.photos/200/200?image=1074',
+            title: 'Rico Masi',
+            position: 'Code Master',
+            descr: 'There’s no challege Rico can’t tame! Making sure everything is safe and secure on the back end, you can say that he’s the heart of this team. ',
+          },
+          {
+            id: 3,
+            img: 'https://picsum.photos/200/200?image=1013',
+            title: 'Uku Mason',
+            position: 'Marketing Expert',
+            descr: 'Not your average marketer. Uku manages everything from, marketing and finance to customer relation.',
+          },
+          {
+            id: 4,
+            img: 'https://picsum.photos/200/200?image=1049',
+            title: 'Blaz Robar',
+            position: 'Design Guru',
+            descr: 'A Highly experienced UI/UX designer, Blaz brings our ideas to life with his beautiful visual designs.',
+          },
+          {
+            id: 5,
+            img: 'https://picsum.photos/200/200?image=514',
+            title: 'Jamie Adams',
+            position: 'Assistant',
+            descr: 'Don’t let the picture fool you. Jamie is the glue that holds our team together! Managing everthing from recruitments, social gatherings, and everyday operations.',
+          },
+        ]
+      }
+    }
+  }
+};
+</script>
+
+<style>
+.about {
+  font-size: 16px;
+  line-height: 20px;
+}
+.about__block {
+  margin-top: 100px;
+}
+
+.about__team {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about__team > div {
+  max-width: 300px;
+}
+
+.about h2 {
+  text-align: center;
+  font-size: 48px;
+  line-height: 50px;
+  margin-bottom: 60px;
+}
+.about p {
+  margin-bottom: 2em;
+}
+</style>
