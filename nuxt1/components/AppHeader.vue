@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container">
       <div class="header__inner">
-        <div class="header__logo">Classic</div>
+        <nuxt-link class="header__logo" to="/">Classic</nuxt-link>
         <div class="header__nav">
           <nav class="nav">
             <nuxt-link class="nav__link" to="/">Home</nuxt-link>
@@ -39,6 +39,8 @@ export default {
   color: #fff;
   font-weight: bold;
   font-size: 20px;
+  text-decoration: none;
+  
 }
 
 .nav {
@@ -49,6 +51,9 @@ export default {
   text-transform: uppercase;
   display: block;
   color: #ccc;
+}
+.nav__link.nuxt-link-exact-active {
+  color: #fff;
 }
 .nav__link + .nav__link {
   margin-left: 30px;

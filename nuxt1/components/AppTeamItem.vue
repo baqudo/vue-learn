@@ -7,6 +7,9 @@
       <h4 class="team-item__title">{{item.title}}</h4>
       <div class="team-item__position">{{item.position}}</div>
       <div class="team-item__desr">{{item.descr}}</div>
+      <div class="team-item__slot">
+        <slot/>
+      </div>
     </div>
   </transition>
 </template>
@@ -46,5 +49,8 @@
 .team-item__position {
   color: #555555;
   margin-bottom: 30px;
+}
+.team-item__slot {
+  margin: 10px 0;
 }
 </style>

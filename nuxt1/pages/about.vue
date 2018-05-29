@@ -8,7 +8,12 @@
       <div class="about__block">
         <h2>{{team.title}}</h2>
         <div class="about__team" >
-          <AppTeamItem v-for="teammate in team.list" :item="teammate" :key="teammate.id" />
+          <AppTeamItem v-for="teammate in team.list" :item="teammate" :key="teammate.id">
+            
+            <p>Teammate #{{teammate.id}}: Slot</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, voluptatibus.</p>
+            
+          </AppTeamItem>
         </div>
       </div>
     </div>   
@@ -16,12 +21,26 @@
 </template>
 
 <script>
-
+import {TimelineMax} from 'gsap';
 import AppTeamItem from '~/components/AppTeamItem';
+
 export default {
   name: 'about',
   components: {
     AppTeamItem
+  },
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    css: false,
+    enter: function(el, done) {
+      let tl = new TimelineMax({onComplete: done});
+      tl.from(el, 0.3, {x: '-100%', opacity: 0});
+    },
+    leave: function(el, done) {
+      let tl = new TimelineMax({onComplete: done});
+      tl.to(el, 0.2, {x: '100%', opacity: 0});
+    }
   },
   data () {
     return {
@@ -102,5 +121,17 @@ export default {
 }
 .about p {
   margin-bottom: 2em;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
