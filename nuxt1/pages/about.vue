@@ -9,14 +9,14 @@
         <h2>{{team.title}}</h2>
         <div class="about__team" >
           <AppTeamItem v-for="teammate in team.list" :item="teammate" :key="teammate.id">
-            
-            <p>Teammate #{{teammate.id}}: Slot</p>
+
+            <p><b>Teammate #{{teammate.id}}: Slot</b></p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, voluptatibus.</p>
-            
+
           </AppTeamItem>
         </div>
       </div>
-    </div>   
+    </div>
   </div>
 </template>
 

@@ -58,12 +58,14 @@
   width: 328px;
   height: 288px;
   background-color: #ccc;
+  overflow: hidden;
 }
 .post img {
   min-width: 100%;
   height: 100%;
   max-height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 .post__descr {
   margin-bottom: 24px;
