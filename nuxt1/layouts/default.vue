@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout">
     <AppHeader/>
     <nuxt/>
     <AppFooter/>
@@ -63,4 +63,27 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 70px auto 50px
+}
+.emptypage-enter-active, .emptypage-leave-active {
+  transition: all .3s ease-in-out;
+}
+.emptypage-enter, .emptypage-leave-to {
+  opacity: 0;
+}
+.emptypage-enter {
+  transform: translate(0, -100%);
+}
+.emptypage-leave-to {
+  transform: translate(0, -100%);
+}
+.emptypage-enter-to, .emptypage-leave {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+
 </style>

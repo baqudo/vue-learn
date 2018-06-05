@@ -2,7 +2,7 @@
   <transition name="show1">
     <div class="team-item">
       <div class="team-item__img">
-        <img v-bind:src="item.img" alt="Place  Image Here">
+        <img :src="item.img" alt="Place Image Here">
       </div>
       <h4 class="team-item__title">{{item.title}}</h4>
       <div class="team-item__position">{{item.position}}</div>
