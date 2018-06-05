@@ -1,7 +1,13 @@
 <template>
   <div class="home">
+
     <div class="container">
-      <app-post  v-for="post in posts" :post="post" :key="post.id"/>
+      <div class="search">
+        <input class="search__field" v-model="search" placeholder="Search...">
+      </div>
+
+      <app-post v-for="post in filterPosts(search)" :post="post" :key="post.id" />
+
     </div>
 
   </div>
@@ -32,6 +38,7 @@ export default {
   },
   data () {
     return {
+      search: '',
       msg: 'Privet coderiver',
       posts: [
         {
@@ -60,6 +67,13 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    filterPosts: function (value) {
+      return this.posts.filter((post) => {
+        return value.length > 0 ? post.title.toLowerCase().indexOf(value.toLowerCase()) !== -1 : true
+      })
+    },
   }
 }
 </script>
@@ -181,4 +195,14 @@ li {
 a {
   color: #42b983;
 }
+
+.search {
+  margin: 20px auto 20px 0;
+}
+.search__field {
+  border: 1px solid #ddd;
+  padding: 10px;
+
+}
+
 </style>
