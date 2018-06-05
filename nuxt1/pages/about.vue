@@ -1,10 +1,16 @@
 <template>
   <div class="about">
     <div class="container">
+      <div class="search">
+        <label for="search">Search by post title</label>
+        <input name="search" class="search__field" v-model="search" placeholder="Search...">
+      </div>
+
       <div class="about__block">
         <h2>{{about.title}}</h2>
         <p v-for="text in about.text" :key="text.index">{{text}}</p>
       </div>
+
       <div class="about__block">
         <h2>{{team.title}}</h2>
         <div class="about__team" >
@@ -21,29 +27,18 @@
 </template>
 
 <script>
-import {TimelineMax} from 'gsap';
-import AppTeamItem from '~/components/AppTeamItem';
+import AppTeamItem from '~/components/AppTeamItem'
+import pageAnimation from '~/mixins/pageAnimation'
 
 export default {
   name: 'about',
   components: {
     AppTeamItem
   },
-  transition: {
-    name: 'page',
-    mode: 'out-in',
-    css: false,
-    enter: function(el, done) {
-      let tl = new TimelineMax({onComplete: done});
-      tl.from(el, 0.3, {x: '-100%', opacity: 0});
-    },
-    leave: function(el, done) {
-      let tl = new TimelineMax({onComplete: done});
-      tl.to(el, 0.2, {x: '100%', opacity: 0});
-    }
-  },
-  data () {
+  mixins: [pageAnimation],
+  data() {
     return {
+      search: '',
       about: {
         title: 'What We Are All About',
         text: [
@@ -90,7 +85,14 @@ export default {
         ]
       }
     }
-  }
+  },
+  computed: {
+    postComputed() {
+      return this.posts.find((post) => {
+        return this.search.length > 0 ? post.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 : true
+      })
+    },
+  },
 };
 </script>
 

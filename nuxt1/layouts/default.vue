@@ -66,7 +66,9 @@ html {
 .layout {
   min-height: 100vh;
   display: grid;
-  grid-template-rows: 70px auto 50px
+  grid-template-rows: 70px auto 50px;
+  position: relative;
+  overflow: hidden;
 }
 .emptypage-enter-active, .emptypage-leave-active {
   transition: all .3s ease-in-out;

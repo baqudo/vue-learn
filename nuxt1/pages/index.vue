@@ -3,10 +3,13 @@
 
     <div class="container">
       <div class="search">
-        <input class="search__field" v-model="search" placeholder="Search...">
+        <label for="search">Search by post title</label>
+        <input name="search" class="search__field" v-model="search" placeholder="Search...">
       </div>
 
-      <app-post v-for="post in filterPosts(search)" :post="post" :key="post.id" />
+      <transition-group name="slide-toggle">
+        <app-post v-for="post in filterPosts(search)" :post="post" :key="post.id" />
+      </transition-group>
 
     </div>
 
@@ -14,28 +17,16 @@
 </template>
 
 <script>
-import {TimelineMax} from 'gsap';
 import AppPost from '~/components/AppPost'
 import AppLogo from '~/components/AppLogo.vue'
+import pageAnimation from '~/mixins/pageAnimation'
 
 export default {
   components: {
     AppLogo,
     AppPost
   },
-  transition: {
-    name: 'page',
-    mode: 'out-in',
-    css: false,
-    enter: function(el, done) {
-      let tl = new TimelineMax({onComplete: done});
-      tl.from(el, 0.3, {x: '-100%', opacity: 0});
-    },
-    leave: function(el, done) {
-      let tl = new TimelineMax({onComplete: done});
-      tl.to(el, 0.2, {x: '100%', opacity: 0});
-    }
-  },
+  mixins: [pageAnimation],
   data () {
     return {
       search: '',
@@ -72,7 +63,7 @@ export default {
     }
   },
   methods: {
-    filterPosts: function (value) {
+    filterPosts(value) {
       return this.posts.filter((post) => {
         return value.length > 0 ? post.title.toLowerCase().indexOf(value.toLowerCase()) !== -1 : true
       })
@@ -202,10 +193,24 @@ a {
 .search {
   margin: 20px auto 20px 0;
 }
+.search label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 14px;
+}
 .search__field {
   border: 1px solid #ddd;
   padding: 10px;
 
 }
-
+.slide-toggle-enter-active {
+  transition: all .3s ease-in;
+}
+.slide-toggle-leave-active {
+  transition: all .3s ease-out;
+}
+.slide-toggle-enter, .slide-toggle-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  transform: translate(0, -50%);
+}
 </style>
