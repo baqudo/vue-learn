@@ -1,11 +1,13 @@
 <template>
   <div class="container">
-    <h1>NEWS</h1>
+    <div class="page-paper">
+      <h1>Word Press</h1>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    transition: 'emptypage'
+    transition: 'fly'
   }
 </script>

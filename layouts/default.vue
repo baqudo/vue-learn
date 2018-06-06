@@ -87,5 +87,35 @@ html {
   transform: translate(0, 0);
 }
 
+.fly-enter-active, .fly-leave-active {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: 50% 50% -300px;
+  transform-origin: 50% 50% -300px;
+  transition: 0.8s ease;
+}
+.fly-enter, .fly-leave-to {
+  opacity: 0;
+  -webkit-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
+}
+.fly-enter-to, .fly-leave {
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  opacity: 1;
+}
 
+.page-papers {
+  display: flex;
+  flex-flow: row wrap;
+}
+.page-paper {
+  min-height: 300px;
+  min-width: 200px;
+  border: 2px solid #aaa;
+  background-color: lightblue;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+}
 </style>
