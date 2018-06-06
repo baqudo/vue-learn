@@ -1,4 +1,4 @@
-# nuxt1
+# Vue Learn
 
 > Nuxt.js project
 
