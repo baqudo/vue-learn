@@ -8,10 +8,11 @@
             <nuxt-link class="nav__link" to="/">Home</nuxt-link>
             <nuxt-link class="nav__link" to="news">News</nuxt-link>
             <nuxt-link class="nav__link" to="about">About</nuxt-link>
+            <nuxt-link class="nav__link" to="todo">TODO</nuxt-link>
             <nuxt-link class="nav__link" to="tutorials">Tutorials</nuxt-link>
             <nuxt-link class="nav__link" to="wordPress">WordPress</nuxt-link>
           </nav>
-        </div> 
+        </div>
       </div>
     </div>
   </header>
@@ -40,7 +41,7 @@ export default {
   font-weight: bold;
   font-size: 20px;
   text-decoration: none;
-  
+
 }
 
 .nav {
