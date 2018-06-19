@@ -1,7 +1,7 @@
 <template lang="pug">
   .todo-item
     .todo-item__value {{ todo.value }}
-    button.todo-item__close x
+    button.todo-item__close(@click="remove(todo.id)") x
 </template>
 
 <script>
@@ -13,6 +13,11 @@ export default {
   data() {
     return {
 
+    }
+  },
+  methods: {
+    remove(id) {
+      console.log(id);
     }
   }
 };
