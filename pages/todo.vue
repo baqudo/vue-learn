@@ -2,8 +2,7 @@
   .todo
     .container
       // form.todo__form(@submit.prevent)
-      h1 TODO
-      label.todo__label What needs to be done?
+      label.todo__label TODO:
       input.todo__add(
         placeholder="What needs to be done?",
         v-model="newTodoTitle",
@@ -11,7 +10,7 @@
       )
       button.todo__submit(
         @click="addTodo"
-      ) apply
+      ) Add
       .todo__list
         TodoItem(
           v-for="(item, index) in todos"
@@ -90,10 +89,13 @@
     margin: 0 auto
     padding: 20px 0
     max-width: 500px
-  .todo-add
-    width: 100%
-    font-size: 20px
-    padding: 10px
-    border: 1px solid #ccc
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5)
+    &__label
+      margin-bottom: 10px
+    &__add
+      width: 100%
+      font-size: 20px
+      margin: 10px 0
+      padding: 10px
+      border: 1px solid #ccc
+      box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5)
 </style>
