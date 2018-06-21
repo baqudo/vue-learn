@@ -9,6 +9,9 @@
         v-model="newTodoTitle",
         @keypress.enter="addTodo"
       )
+      button.todo__submit(
+        @click="addTodo"
+      ) apply
       .todo__list
         TodoItem(
           v-for="(item, index) in todos"
@@ -41,6 +44,10 @@
       this.getTodos();
     },
     methods: {
+      generateId() {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      },
+
       getTodos() {
         axios.get(`${servUrl}/todos`)
           .then(response => {
@@ -50,37 +57,28 @@
             console.log(error);
           });
       },
-      createTodo() {
-        console.log('createTodo');
+
+      async addTodo() {
+        console.log('addTodo');
         let newTodo = {
-          id: ++this.todos.length,
+          id: this.generateId(),
           title: this.newTodoTitle
         }
-        console.log(this.todos.length, newTodo);
-        return newTodo;
-      },
-      addTodo() {
-        console.log('addTodo');
-        let newTodo = this.createTodo();
-        console.log(newTodo);
 
-        // axios.post(`${servUrl}/todos`, newTodo)
-        axios.delete(`${servUrl}/todos`, {
-          params: this.todos
-        })
-        // this.todos.push({
-        //   id: this.todos.length,
-        //   title: this.newTodoTitle
-        // })
-        this.newTodoTitle = ''
+        await axios.post(`${servUrl}/todos/`, newTodo);
+
+        this.newTodoTitle = '';
+
+        await this.getTodos();
       },
+
       async removeTodo(item) {
         // this.todos = this.todos.filter(todo => {
         //   return todo.id !== item.id
         // });
         await axios.delete(`${servUrl}/todos/${item.id}`);
 
-        this.getTodos();
+        await this.getTodos();
       }
     }
 

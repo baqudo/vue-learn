@@ -3,9 +3,11 @@
     label.todo-item__selected
       input(
         type="checkbox"
+        v-model="completed"
       )
-    .todo-item__id {{ todo.index }}.
-    .todo-item__title {{ todo.title }}
+    .todo-item__title
+      span.todo-item__id {{ index }}:
+      | {{ todo.title }}
     button.todo-item__close(@click.prevent="$emit(\'remove\')")
 </template>
 
@@ -13,7 +15,16 @@
 export default {
   name: 'TodoItem',
   props: {
-    todo: {}
+    todo: {},
+    index: Number
+  },
+  data() {
+    return {
+      completed: {
+        type: Boolean,
+        default: false
+      }
+    }
   },
   methods: {
     someFn(ev) {
@@ -33,6 +44,9 @@ export default {
     font-size: 18px
     &__id
       margin-right: 10px
+    &__selected
+      display: block
+      margin-right: 16px
     &__close
       position: absolute
       top: 50%
