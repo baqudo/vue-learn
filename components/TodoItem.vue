@@ -3,7 +3,8 @@
     label.todo-item__selected
       input(
         type="checkbox"
-        v-model="completed"
+        v-model="todo.isComplete"
+        @change="$emit(\'complete\')"
       )
     .todo-item__title
       span.todo-item__id {{ index }}:

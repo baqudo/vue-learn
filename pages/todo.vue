@@ -3,21 +3,26 @@
     .container
       // form.todo__form(@submit.prevent)
       label.todo__label TODO:
-      input.todo__add(
-        placeholder="What needs to be done?",
-        v-model="newTodoTitle",
-        @keypress.enter="addTodo"
-      )
+        input.todo__add(
+          placeholder="What needs to be done?",
+          v-model="newTodoTitle",
+          @keypress.enter="addTodo"
+        )
       button.todo__submit(
         @click="addTodo"
       ) Add
-      .todo__list
+      .todo__list(
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="busy"
+        infinite-scroll-distance="10"
+      )
         TodoItem(
-          v-for="(item, index) in todos"
+          v-for="(item, id) in todos"
+          v-rainbow
           :todo="item"
-          :index="index"
-          :key="item.id"
-          @remove="removeTodo(item)"
+          :key="id"
+          @remove="removeTodo(id)"
+          @complete="completeTodo(id, item)"
         )
 
 </template>
@@ -26,8 +31,10 @@
   import axios from 'axios'
   import TodoItem from '~/components/TodoItem'
 
+  import infiniteScroll from 'vue-infinite-scroll'
+  const base = 'https://baqudo-vue.firebaseio.com/';
   const servUrl = 'http://localhost:3004';
-
+  var count = 0;
   export default {
     name: 'todo',
     components: {
@@ -37,6 +44,8 @@
       return {
         todos: [],
         newTodoTitle: '',
+        data: [],
+        busy: false
       }
     },
     created() {
@@ -46,10 +55,16 @@
       generateId() {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       },
+      async completeTodo(id, item) {
+        console.log(id, item);
+        await axios.put(`${base}/todos/${id}.json`, item);
 
-      getTodos() {
-        axios.get(`${servUrl}/todos`)
+        this.getTodos();
+      },
+      async getTodos() {
+        await axios.get(`${base}/todos.json`)
           .then(response => {
+            console.log(response)
             this.todos = response.data;
           })
           .catch(function (error) {
@@ -60,27 +75,46 @@
       async addTodo() {
         console.log('addTodo');
         let newTodo = {
-          id: this.generateId(),
-          title: this.newTodoTitle
+          title: this.newTodoTitle,
+          isComplete: false
         }
 
-        await axios.post(`${servUrl}/todos/`, newTodo);
+        await axios.post(`${base}/todos.json`, newTodo);
 
         this.newTodoTitle = '';
 
-        await this.getTodos();
+        this.getTodos();
       },
 
-      async removeTodo(item) {
+      async removeTodo(id) {
+        // console.log(item)
         // this.todos = this.todos.filter(todo => {
         //   return todo.id !== item.id
         // });
-        await axios.delete(`${servUrl}/todos/${item.id}`);
+        await axios.delete(`${base}/todos/${id}.json`);
 
-        await this.getTodos();
+        this.getTodos();
+      },
+      loadMore: function() {
+        this.busy = true;
+
+        setTimeout(() => {
+          for (var i = 0, j = 10; i < j; i++) {
+            this.data.push({ name: count++ });
+          }
+          this.busy = false;
+        }, 1000);
+      }
+    },
+    directives: {
+      infiniteScroll,
+      rainbow: {
+        // определение директивы
+        inserted: function (el) {
+          el.style.backgroundColor = "#" + (Math.round(Math.random() * 0XFFFFFF)).toString(16);
+        }
       }
     }
-
   }
 </script>
 
